@@ -55,7 +55,9 @@ namespace ACDC
         [JsonIgnore]
         public virtual Consumer Consumer { get; set; }
         public virtual ElectricMeter ElectricMeter { get; set; }
+        [ForeignKey("VoltageTransformerID")]
         public virtual VoltageTransformer VoltageTransformer { get; set; }
+        [ForeignKey("CurrentTransformerID")]
         public virtual CurrentTransformer CurrentTransformer { get; set; }
         [JsonIgnore]
         public ICollection<CalcLink> CalcLinks { get; set; }
@@ -67,6 +69,7 @@ namespace ACDC
         public DateTime CheckDate { get; set; }
         public  int MeasurePointID { get; set; }
         [JsonIgnore]
+        [ForeignKey("MeasurePointID")]
         public virtual MeasurePoint MeasurePoint { get; set; }
     }
 
