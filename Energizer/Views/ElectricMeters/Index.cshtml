@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Energizer.Models.ElectricMeter>
+
+@{
+    ViewData["Title"] = "Index electric meters";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MeterType)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CheckDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MeterType.Title)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

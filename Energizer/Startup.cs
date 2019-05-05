@@ -32,11 +32,8 @@ namespace Energizer
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddDbContext<EnergizerContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("EnergizerContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,13 +50,14 @@ namespace Energizer
             });*/
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+         
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=CalcUnits}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
+            
         }
     }
 }

@@ -32,7 +32,7 @@ namespace ACDC
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = "ACDC API", Version = "v1" });
             });
         }
 
@@ -46,7 +46,7 @@ namespace ACDC
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ACDC API V1");
             });
 
             if (env.IsDevelopment())

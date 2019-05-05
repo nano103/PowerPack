@@ -1,50 +1,102 @@
-﻿@model ACDC.MeasurePoint
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, Energizer
+@model Energizer.Models.MeasurePoint
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Создать точку измерения";
 }
 
-<h2>Create</h2>
+<h2>Создать</h2>
 
-<h4>MeasurePoint</h4>
+<h4>Точка измерения</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ConsumerID" class="control-label"></label>
-                <select asp-for="ConsumerID" class ="form-control" asp-items="ViewBag.ConsumerID"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="ElectricMeterID" class="control-label"></label>
-                <input asp-for="ElectricMeterID" class="form-control" />
-                <span asp-validation-for="ElectricMeterID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VoltageTransformerID" class="control-label"></label>
-                <select asp-for="VoltageTransformerID" class ="form-control" asp-items="ViewBag.VoltageTransformerID"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="CurrentTransformerID" class="control-label"></label>
-                <select asp-for="CurrentTransformerID" class ="form-control" asp-items="ViewBag.CurrentTransformerID"></select>
-            </div>
-            <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <label asp-for="ConsumerID" class="control-label"></label>
+                <select asp-for="ConsumerID" class="form-control" asp-items="ViewBag.Consumers"></select>
+            </div>
+            <hr />
+            <div class="add-sets">
+                <h4><label asp-for="ElectricMeter" class="control-label"></label></h4>
+                <div class="form-group">
+                    <label asp-for="ElectricMeter.MeterType" class="control-label"></label>
+                    <input asp-for="ElectricMeter.MeterType.Title" class="form-control" />
+                    <span asp-validation-for="ElectricMeter.MeterType.Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ElectricMeter.Number" class="control-label"></label>
+                    <input asp-for="ElectricMeter.Number" class="form-control" />
+                    <span asp-validation-for="ElectricMeter.Number" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ElectricMeter.CheckDate" class="control-label"></label>
+                    <input asp-for="ElectricMeter.CheckDate" class="form-control" asp-format="{0:dd/MM/yyyy}" />
+                    <span asp-validation-for="ElectricMeter.CheckDate" class="text-danger"></span>
+                </div>
+            </div>
+            <hr />
+            <div class="add-sets">
+                <h4><label asp-for="VoltageTransformer" class="control-label"></label></h4>
+                <div class="form-group">
+                    <label asp-for="VoltageTransformer.VTType" class="control-label"></label>
+                    <input asp-for="VoltageTransformer.VTType.Title" class="form-control" />
+                    <span asp-validation-for="VoltageTransformer.VTType.Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="VoltageTransformer.Number" class="control-label"></label>
+                    <input asp-for="VoltageTransformer.Number" class="form-control" />
+                    <span asp-validation-for="VoltageTransformer.Number" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="VoltageTransformer.VTC" class="control-label"></label>
+                    <input asp-for="VoltageTransformer.VTC" class="form-control" />
+                    <span asp-validation-for="VoltageTransformer.VTC" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="VoltageTransformer.CheckDate" class="control-label"></label>
+                    <input asp-for="VoltageTransformer.CheckDate" class="form-control" />
+                    <span asp-validation-for="VoltageTransformer.CheckDate" class="text-danger"></span>
+                </div>
+            </div>
+            <hr />
+            <div class="add-sets">
+                <h4><label asp-for="CurrentTransformer" class="control-label"></label></h4>
+                <div class="form-group">
+                    <label asp-for="CurrentTransformer.CTType" class="control-label"></label>
+                    <input asp-for="CurrentTransformer.CTType.Title" class="form-control" />
+                    <span asp-validation-for="CurrentTransformer.CTType.Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CurrentTransformer.Number" class="control-label"></label>
+                    <input asp-for="CurrentTransformer.Number" class="form-control" />
+                    <span asp-validation-for="CurrentTransformer.Number" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CurrentTransformer.CTC" class="control-label"></label>
+                    <input asp-for="CurrentTransformer.CTC" class="form-control" />
+                    <span asp-validation-for="CurrentTransformer.CTC" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CurrentTransformer.CheckDate" class="control-label"></label>
+                    <input asp-for="CurrentTransformer.CheckDate" class="form-control" />
+                    <span asp-validation-for="CurrentTransformer.CheckDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Назад к списку</a>
 </div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

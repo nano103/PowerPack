@@ -80,6 +80,7 @@ namespace ACDC.Controllers
             using (PowerContext db = new PowerContext())
             {
                 var MeasurePoints = from p in db.MeasurePoints
+                                    .Include("Consumer")
                                     .Include("ElectricMeter")
                                     .Include("VoltageTransformer")
                                     .Include("CurrentTransformer")
@@ -176,10 +177,23 @@ namespace ACDC.Controllers
         {
             using (PowerContext db = new PowerContext())
             {
-                var timeFrom = new DateTime(2018, 1, 1);
-                var timeTo = new DateTime(2019, 1, 1);
+                var CalcUnits = from p in db.CalcUnits
+                                .Include("SupplyPoint")
+                                select p;
+                return CalcUnits.ToList();
+            }
+        }
+
+        [HttpGet("year/{id}")]
+        public List<CalcUnit> Year(int id)
+        {
+            using (PowerContext db = new PowerContext())
+            {
+                var timeFrom = new DateTime(id, 1, 1);
+                var timeTo = new DateTime(id+1, 1, 1);
 
                 var CalcUnits = from p in db.CalcUnits
+                                .Include("SupplyPoint")
                                 where ((p.TimeFrom >= timeFrom) && (p.TimeFrom < timeTo)) || ((p.TimeTo >= timeFrom) && (p.TimeTo < timeTo))
                                 select p;
                 return CalcUnits.ToList();
@@ -199,37 +213,40 @@ namespace ACDC.Controllers
             return new string[] { "out", "dated" };
         }
 
-        [HttpGet("meters")]
-        public List<ElectricMeter> Meters()
+        [HttpGet("meters/{id}")]
+        public List<ElectricMeter> Meters(int id)
         {
             using (PowerContext db = new PowerContext())
             {
                 var ElectricMeters = from p in db.ElectricMeters
-                                    where p.CheckDate <= DateTime.Now
+                                     .Include("MeterType")
+                                     where (p.CheckDate <= DateTime.Now) && ((id==0) || (p.MeasurePoint.ConsumerID == id))
                                     select p;
                 return ElectricMeters.ToList();
             }
         }
 
-        [HttpGet("vts")]
-        public List<VoltageTransformer> VoltagreTransformers()
+        [HttpGet("vts/{id}")]
+        public List<VoltageTransformer> VoltagreTransformers(int id)
         {
             using (PowerContext db = new PowerContext())
             {
                 var VoltageTransformers = from p in db.VoltageTransformers
-                                          where p.CheckDate <= DateTime.Now
+                                          .Include("VTType")
+                                          where (p.CheckDate <= DateTime.Now) && ((id==0) ||(p.MeasurePoint.ConsumerID == id))
                                      select p;
                 return VoltageTransformers.ToList();
             }
         }
 
-        [HttpGet("cts")]
-        public List<CurrentTransformer> CurrentTransformers()
+        [HttpGet("cts/{id}")]
+        public List<CurrentTransformer> CurrentTransformers(int id)
         {
             using (PowerContext db = new PowerContext())
             {
                 var CurrentTransformers = from p in db.CurrentTransformers
-                                          where p.CheckDate <= DateTime.Now
+                                          .Include("CTType")
+                                          where (p.CheckDate <= DateTime.Now) && ((id==0) || (p.MeasurePoint.ConsumerID == id))
                                           select p;
                 return CurrentTransformers.ToList();
             }
@@ -244,7 +261,8 @@ namespace ACDC.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new RedirectResult("/swagger/");
+            // return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5

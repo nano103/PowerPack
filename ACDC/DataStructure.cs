@@ -38,8 +38,11 @@ namespace ACDC
     public class Consumer : AddressedEntity
     {
         public int AffiliateID { get; set; }
+         [JsonIgnore]
         public virtual Affiliate Affiliate { get; set; }
+        [JsonIgnore]
         public ICollection<MeasurePoint> MeasurePoints { get; set; }
+        [JsonIgnore]
         public ICollection<SupplyPoint> SupplyPoints { get; set; }
     }
 
@@ -52,7 +55,6 @@ namespace ACDC
         public int VoltageTransformerID { get; set; }
         [JsonIgnore]
         public int CurrentTransformerID { get; set; }
-        [JsonIgnore]
         public virtual Consumer Consumer { get; set; }
         public virtual ElectricMeter ElectricMeter { get; set; }
         [ForeignKey("VoltageTransformerID")]
@@ -81,7 +83,6 @@ namespace ACDC
 
     public class ElectricMeter : CheckedEntity
     {
-        [JsonIgnore]
         public int MeterTypeID { get; set; }
         public virtual MeterType MeterType { get; set; }
     }
@@ -95,7 +96,6 @@ namespace ACDC
     public class CurrentTransformer : CheckedEntity
     {
         public double CTC;
-        [JsonIgnore]
         public int CTTypeID { get; set; }
         public virtual CTType CTType { get; set; }
     }
@@ -109,7 +109,6 @@ namespace ACDC
     public class VoltageTransformer : CheckedEntity
     {
         public double VTC;
-        [JsonIgnore]
         public int VTTypeID { get; set; }
         public virtual VTType VTType { get; set; }
     }
@@ -129,8 +128,8 @@ namespace ACDC
         public DateTime TimeFrom { get; set; }
         public DateTime TimeTo { get; set; }
         public int SupplyPointID { get; set; }
+        public virtual SupplyPoint SupplyPoint { get; set; }
         [JsonIgnore]
-        public virtual SupplyPoint SupplyPoint { get; set; }        
         public ICollection<CalcLink> CalcLinks { get; set; }
     }
 

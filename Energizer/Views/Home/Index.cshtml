@@ -1,0 +1,10 @@
+﻿
+@{
+    ViewData["Title"] = "Energizer web interface";
+}
+
+<h2>Welcome to energizer</h2>
+
+@Html.ActionLink("Точки измерения","Index","MeasurePoints")<br/>
+@Html.ActionLink("Расчетные приборы учета в 2018 году","year","CalcUnits", new { id=2018}, null)<br />
+@Html.ActionLink("Объекты потребления","Index","Consumers")<br />
